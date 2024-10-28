@@ -1,33 +1,73 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.db
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Directórios de build
+/target/
+/out/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IDEs
+.idea/
 *.iml
+*.hprof
+*.log
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ
 *.ipr
+*.iws
+*.idea/
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# Logs
+logs/
+*.log
+
+# Arquivos de dependências
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos de cache
+.cache/
+.cache/
+*.class
+
+# Arquivos de configuração de ambientes
+*.properties
+*.yml
+*.yaml
+
+# Arquivos gerados pelo Spring Boot
+spring.log
+spring-boot-devtools.jar
+
+# Outros
+*~
+*.swp
