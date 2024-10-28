@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: seu_nome
+      changes:
+        - createTable:
+            tableName: processo:
+              columns:
+                - column:
+                    name: id
+                    type: serial
+                    constraints:
+                      primaryKey: true
+                - column:
+                    name: numero
+                    type: varchar(255)
+                    constraints:
+                      unique: true
+                - column:
+                    name: reu
+                    type: varchar(255)

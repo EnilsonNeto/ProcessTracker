@@ -1,73 +1,24 @@
-# Java
+# Compiled class file
 *.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
 *.jar
 *.war
+*.nar
 *.ear
-*.db
+*.zip
+*.tar.gz
+*.rar
 
-# Directórios de build
-/target/
-/out/
-
-# IDEs
-.idea/
-*.iml
-*.hprof
-*.log
-
-# Eclipse
-.classpath
-.project
-.settings/
-
-# IntelliJ
-*.ipr
-*.iws
-*.idea/
-out/
-
-# OS Generated Files
-.DS_Store
-Thumbs.db
-
-# Maven
-.mvn/
-mvnw
-mvnw.cmd
-
-# Gradle
-.gradle/
-build/
-
-# Logs
-logs/
-*.log
-
-# Arquivos de dependências
-dependency-reduced-pom.xml
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-
-# Arquivos temporários
-*.tmp
-*.temp
-
-# Arquivos de cache
-.cache/
-.cache/
-*.class
-
-# Arquivos de configuração de ambientes
-*.properties
-*.yml
-*.yaml
-
-# Arquivos gerados pelo Spring Boot
-spring.log
-spring-boot-devtools.jar
-
-# Outros
-*~
-*.swp
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
