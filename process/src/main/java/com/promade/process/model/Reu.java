@@ -14,7 +14,6 @@ public class Reu {
     @ManyToMany(mappedBy = "reus", cascade = CascadeType.ALL)
     private Set<Processo> processos;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

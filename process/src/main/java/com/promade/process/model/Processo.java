@@ -20,12 +20,11 @@ public class Processo {
         joinColumns = @JoinColumn(name = "processo_id"),
         inverseJoinColumns = @JoinColumn(name = "reu_id")
     )
-    private Set<Reu> reus = new HashSet<>(); // Inicializa o Set
+    private Set<Reu> reus = new HashSet<>(); 
 
-    @Transient // Não será salvo no banco de dados
-    private List<Long> reusIds; // Novo atributo para os IDs dos réus
+    @Transient
+    private List<Long> reusIds;
 
-    // Getters e Setters
     public String getNumero() {
         return numero;
     }

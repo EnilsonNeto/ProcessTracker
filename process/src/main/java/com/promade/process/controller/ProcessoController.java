@@ -39,11 +39,10 @@ public class ProcessoController {
             throw new IllegalArgumentException("Número do processo é obrigatório.");
         }
         
-        // Vinculando réus ao processo usando os IDs fornecidos
         if (processo.getReusIds() != null) {
             Set<Reu> reus = new HashSet<>();
             for (Long reuId : processo.getReusIds()) {
-                Reu reu = reuService.buscarPorId(reuId); // Busca o réu pelo ID
+                Reu reu = reuService.buscarPorId(reuId);
                 if (reu != null) {
                     reus.add(reu);
                 }
@@ -56,9 +55,11 @@ public class ProcessoController {
     }
     
     @GetMapping
-    public List<Processo> listar() {
-        return processoService.listar();
+    public ResponseEntity<List<Processo>> listar() {
+        List<Processo> processosUnicos = processoService.listar();
+        return ResponseEntity.ok(processosUnicos);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

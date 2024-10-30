@@ -1,7 +1,10 @@
 package com.promade.process.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +31,11 @@ public class ProcessoService {
     }
 
     public List<Processo> listar() {
-        return processoRepository.findAll();
+        List<Processo> processos = processoRepository.findAll();
+        Set<Processo> processosUnicos = new HashSet<>(processos);
+        return new ArrayList<>(processosUnicos);
     }
+
 
     public void excluir(Long id) {
         processoRepository.deleteById(id);
