@@ -38,7 +38,7 @@ public class ProcessoController {
         if (processo.getNumero() == null || processo.getNumero().isEmpty()) {
             throw new IllegalArgumentException("Número do processo é obrigatório.");
         }
-        
+
         if (processo.getReusIds() != null) {
             Set<Reu> reus = new HashSet<>();
             for (Long reuId : processo.getReusIds()) {
