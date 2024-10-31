@@ -31,7 +31,7 @@ public class ProcessoControllerTest {
     @Test
     public void testSalvarProcesso() throws Exception {
         Processo processo = new Processo();
-        processo.setNumero("234123");
+        processo.setNumero("2313");
 
         mockMvc.perform(post("/api/processos")
             .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +42,7 @@ public class ProcessoControllerTest {
     @Test
     public void testSalvarReu() throws Exception {
         Reu reu = new Reu();
-        reu.setNome("neto");
+        reu.setNome("lira");
 
         mockMvc.perform(post("/api/reus")
             .contentType(MediaType.APPLICATION_JSON)
@@ -53,7 +53,7 @@ public class ProcessoControllerTest {
     @Test
     public void testAdicionarReuAoProcesso() throws Exception {
         Reu reu = new Reu();
-        reu.setNome("Mizael");
+        reu.setNome("henrique");
 
         String reuResponse = mockMvc.perform(post("/api/reus")
             .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ public class ProcessoControllerTest {
         Long reuId = new ObjectMapper().readValue(reuResponse, Reu.class).getId();
 
         Processo processo = new Processo();
-        processo.setNumero("321352");
+        processo.setNumero("2343");
 
         String processoResponse = mockMvc.perform(post("/api/processos")
             .contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +83,7 @@ public class ProcessoControllerTest {
     @Test
     public void testSalvarProcessoComNumeroDuplicado() throws Exception {
         Processo processo1 = new Processo();
-        processo1.setNumero("8797");
+        processo1.setNumero("6785");
 
         mockMvc.perform(post("/api/processos")
             .contentType(MediaType.APPLICATION_JSON)
@@ -91,7 +91,7 @@ public class ProcessoControllerTest {
             .andExpect(status().isCreated());
 
         Processo processo2 = new Processo();
-        processo2.setNumero("08934");
+        processo2.setNumero("6447");
 
         mockMvc.perform(post("/api/processos")
             .contentType(MediaType.APPLICATION_JSON)
