@@ -1,23 +1,15 @@
 package com.promade.process.controller;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.promade.process.dto.ProcessoDTO;
 import com.promade.process.model.Processo;
 import com.promade.process.model.Reu;
 import com.promade.process.service.ProcessoService;
@@ -27,39 +19,36 @@ import com.promade.process.service.ReuService;
 @RequestMapping("/api/processos")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProcessoController {
+
     @Autowired
     private ProcessoService processoService;
 
     @Autowired
     private ReuService reuService;
-    
+
     @PostMapping
-    public ResponseEntity<Processo> salvar(@RequestBody Processo processo) {
-        if (processo.getNumero() == null || processo.getNumero().isEmpty()) {
-            throw new IllegalArgumentException("Número do processo é obrigatório.");
+    public ResponseEntity<ProcessoDTO> salvar(@RequestBody ProcessoDTO processoDTO) {
+        if (processoDTO.getNumero() == null || processoDTO.getNumero().isEmpty()) {
+            return ResponseEntity.badRequest().build();
         }
 
-        if (processo.getReusIds() != null) {
-            Set<Reu> reus = new HashSet<>();
-            for (Long reuId : processo.getReusIds()) {
-                Reu reu = reuService.buscarPorId(reuId);
-                if (reu != null) {
-                    reus.add(reu);
-                }
-            }
-            processo.setReus(reus);
-        }
+        Processo processo = new Processo();
+        processo.setNumero(processoDTO.getNumero());
 
-        processoService.salvar(processo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(processo);
+        // Adiciona réus ao processo, se houver
+        processo.setReus(obterReusPorIds(processoDTO.getReusIds()));
+
+        Processo processoSalvo = processoService.salvar(processo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDto(processoSalvo));
     }
-    
+
     @GetMapping
-    public ResponseEntity<List<Processo>> listar() {
-        List<Processo> processosUnicos = processoService.listar();
-        return ResponseEntity.ok(processosUnicos);
+    public ResponseEntity<List<ProcessoDTO>> listar() {
+        List<ProcessoDTO> processosDTO = processoService.listar().stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(processosDTO);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
@@ -67,9 +56,28 @@ public class ProcessoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/reu")
-    public ResponseEntity<Void> adicionarReu(@PathVariable Long id, @RequestParam Long reuId) {
-        processoService.adicionarReu(id, reuId);
+    @PutMapping("/{processoId}/reus/{reuId}")
+    public ResponseEntity<Void> adicionarReu(@PathVariable Long processoId, @PathVariable Long reuId) {
+        processoService.adicionarReu(processoId, reuId);
         return ResponseEntity.ok().build();
+    }
+
+    // Método para buscar réus pelo conjunto de IDs
+    private Set<Reu> obterReusPorIds(List<Long> reusIds) {
+        return reusIds == null ? Set.of() : reusIds.stream()
+            .map(reuService::buscarPorId)
+            .filter(reu -> reu != null)
+            .collect(Collectors.toSet());
+    }
+
+    // Método de conversão de Processo para DTO
+    private ProcessoDTO convertToDto(Processo processo) {
+        ProcessoDTO dto = new ProcessoDTO();
+        dto.setId(processo.getId());
+        dto.setNumero(processo.getNumero());
+        dto.setReusIds(processo.getReus().stream()
+            .map(Reu::getId)
+            .collect(Collectors.toList()));
+        return dto;
     }
 }

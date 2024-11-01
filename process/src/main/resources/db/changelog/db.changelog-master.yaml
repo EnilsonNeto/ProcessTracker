@@ -1,61 +1,99 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: enilson
+      author: user
       changes:
         - createTable:
             tableName: processo
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: numero
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
-                    unique: true
                     nullable: false
+                    unique: true
+              - column:
+                  name: dataCriacao
+                  type: TIMESTAMP
+                  defaultValue: now()
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: 'Em andamento'
 
   - changeSet:
       id: 2
-      author: enilson
+      author: user
       changes:
         - createTable:
             tableName: reu
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: nome
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: cpf
+                  type: VARCHAR(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telefone
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: true
 
   - changeSet:
       id: 3
-      author: enilson
+      author: user
       changes:
         - createTable:
             tableName: processo_reu
             columns:
               - column:
                   name: processo_id
-                  type: bigint
+                  type: BIGINT
                   constraints:
-                    foreignKeyName: fk_processo
-                    references: processo(id)
                     nullable: false
               - column:
                   name: reu_id
-                  type: bigint
+                  type: BIGINT
                   constraints:
-                    foreignKeyName: fk_reu
-                    references: reu(id)
                     nullable: false
+              - column:
+                  name: dataAdmissao
+                  type: TIMESTAMP
+                  defaultValue: now()
+              - column:
+                  name: valorAdmissao
+                  type: DECIMAL(10, 2)
+                  defaultValue: 0.00
+        - addForeignKeyConstraint:
+            baseTableName: processo_reu
+            baseColumnNames: processo_id
+            constraintName: fk_processo_reu_processo
+            referencedTableName: processo
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: processo_reu
+            baseColumnNames: reu_id
+            constraintName: fk_processo_reu_reu
+            referencedTableName: reu
+            referencedColumnNames: id
+            onDelete: CASCADE
