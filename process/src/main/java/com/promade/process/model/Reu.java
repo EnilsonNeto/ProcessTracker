@@ -11,7 +11,6 @@ public class Reu {
     
     private String nome;
     private String cpf;
-    private String endereco;
     private String telefone;
 
     @ManyToMany(mappedBy = "reus", cascade = CascadeType.ALL)
@@ -39,14 +38,6 @@ public class Reu {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getTelefone() {

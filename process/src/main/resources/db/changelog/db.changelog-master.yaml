@@ -19,6 +19,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: dataCriacao
+                  type: TIMESTAMP
+                  defaultValue: now()
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: 'Em andamento'
 
   - changeSet:
       id: 2
@@ -39,6 +47,16 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: cpf
+                  type: VARCHAR(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telefone
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: true
 
   - changeSet:
       id: 3
@@ -57,6 +75,14 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
+              - column:
+                  name: dataAdmissao
+                  type: TIMESTAMP
+                  defaultValue: now()
+              - column:
+                  name: valorAdmissao
+                  type: DECIMAL(10, 2)
+                  defaultValue: 0.00
         - addForeignKeyConstraint:
             baseTableName: processo_reu
             baseColumnNames: processo_id

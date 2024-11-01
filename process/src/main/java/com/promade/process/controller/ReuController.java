@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/reus")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReuController {
+
     @Autowired
     private ReuService reuService;
 
@@ -23,7 +24,6 @@ public class ReuController {
         Reu reu = new Reu();
         reu.setNome(reuDTO.getNome());
         reu.setCpf(reuDTO.getCpf());
-        reu.setEndereco(reuDTO.getEndereco());
         reu.setTelefone(reuDTO.getTelefone());
 
         Reu savedReu = reuService.salvar(reu);
@@ -32,7 +32,6 @@ public class ReuController {
         savedReuDTO.setId(savedReu.getId());
         savedReuDTO.setNome(savedReu.getNome());
         savedReuDTO.setCpf(savedReu.getCpf());
-        savedReuDTO.setEndereco(savedReu.getEndereco());
         savedReuDTO.setTelefone(savedReu.getTelefone());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedReuDTO);
@@ -45,9 +44,36 @@ public class ReuController {
             dto.setId(reu.getId());
             dto.setNome(reu.getNome());
             dto.setCpf(reu.getCpf());
-            dto.setEndereco(reu.getEndereco());
             dto.setTelefone(reu.getTelefone());
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ReuDTO> buscarPorId(@PathVariable Long id) {
+        Reu reu = reuService.buscarPorId(id);
+        ReuDTO dto = new ReuDTO();
+        dto.setId(reu.getId());
+        dto.setNome(reu.getNome());
+        dto.setCpf(reu.getCpf());
+        dto.setTelefone(reu.getTelefone());
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReuDTO> atualizar(@PathVariable Long id, @RequestBody ReuDTO reuDTO) {
+        Reu reuAtualizado = reuService.atualizar(id, reuDTO);
+        ReuDTO dto = new ReuDTO();
+        dto.setId(reuAtualizado.getId());
+        dto.setNome(reuAtualizado.getNome());
+        dto.setCpf(reuAtualizado.getCpf());
+        dto.setTelefone(reuAtualizado.getTelefone());
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        reuService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
