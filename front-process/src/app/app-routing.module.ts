@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { ProcessosComponent } from './components/processos/processos.component';
 @NgModule({
   imports: [
     RouterModule.forRoot([ 
-      { path: '', component: AppComponent },
+      { path: '', component: ProcessosComponent },
     ])
   ],
   exports: [RouterModule]
