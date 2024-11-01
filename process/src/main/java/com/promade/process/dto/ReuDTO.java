@@ -1,22 +1,13 @@
-package com.promade.process.model;
+package com.promade.process.dto;
 
-import jakarta.persistence.*;
-import java.util.Set;
-
-@Entity
-public class Reu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReuDTO {
     private Long id;
-    
     private String nome;
     private String cpf;
     private String endereco;
     private String telefone;
 
-    @ManyToMany(mappedBy = "reus", cascade = CascadeType.ALL)
-    private Set<Processo> processos;
-
+    // Getters e setters
     public Long getId() {
         return id;
     }
@@ -55,13 +46,5 @@ public class Reu {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public Set<Processo> getProcessos() {
-        return processos;
-    }
-
-    public void setProcessos(Set<Processo> processos) {
-        this.processos = processos;
     }
 }

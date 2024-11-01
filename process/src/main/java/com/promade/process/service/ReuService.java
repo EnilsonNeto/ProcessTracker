@@ -27,3 +27,4 @@ public class ReuService {
                 .orElseThrow(() -> new EntityNotFoundException("Réu não encontrado"));
     }
 }
+
