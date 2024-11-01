@@ -35,7 +35,6 @@ public class ProcessoController {
         Processo processo = new Processo();
         processo.setNumero(processoDTO.getNumero());
 
-        // Adiciona réus ao processo, se houver
         processo.setReus(obterReusPorIds(processoDTO.getReusIds()));
 
         Processo processoSalvo = processoService.salvar(processo);
@@ -62,7 +61,6 @@ public class ProcessoController {
         return ResponseEntity.ok().build();
     }
 
-    // Método para buscar réus pelo conjunto de IDs
     private Set<Reu> obterReusPorIds(List<Long> reusIds) {
         return reusIds == null ? Set.of() : reusIds.stream()
             .map(reuService::buscarPorId)
@@ -70,7 +68,6 @@ public class ProcessoController {
             .collect(Collectors.toSet());
     }
 
-    // Método de conversão de Processo para DTO
     private ProcessoDTO convertToDto(Processo processo) {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setId(processo.getId());
