@@ -49,4 +49,6 @@ public class ProcessoService {
         processo.getReus().add(reu);
         processoRepository.save(processo);
     }
+    
+    
 }
