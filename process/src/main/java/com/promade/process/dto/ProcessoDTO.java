@@ -7,7 +7,6 @@ public class ProcessoDTO {
     private String numero;
     private List<Long> reusIds;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

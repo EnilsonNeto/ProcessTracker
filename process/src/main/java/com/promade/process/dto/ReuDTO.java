@@ -6,7 +6,6 @@ public class ReuDTO {
     private String cpf;
     private String telefone;
 
-    // Getters e setters
     public Long getId() {
         return id;
     }
