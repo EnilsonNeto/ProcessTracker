@@ -21,7 +21,7 @@ public class ProcessoService {
     private ProcessoRepository processoRepository;
     @Autowired
     private ReuService reuService;
-    
+
     public Processo salvar(Processo processo) {
         Optional<Processo> existente = processoRepository.findByNumero(processo.getNumero());
         if (existente.isPresent()) {
@@ -36,7 +36,6 @@ public class ProcessoService {
         return new ArrayList<>(processosUnicos);
     }
 
-
     public void excluir(Long id) {
         processoRepository.deleteById(id);
     }
@@ -44,11 +43,10 @@ public class ProcessoService {
     public void adicionarReu(Long id, Long reuId) {
         Processo processo = processoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Processo não encontrado"));
-        
+
         Reu reu = reuService.buscarPorId(reuId);
         processo.getReus().add(reu);
         processoRepository.save(processo);
     }
-    
-    
+
 }

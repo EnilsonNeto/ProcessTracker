@@ -15,12 +15,8 @@ public class Processo {
     private String numero;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "processo_reu",
-        joinColumns = @JoinColumn(name = "processo_id"),
-        inverseJoinColumns = @JoinColumn(name = "reu_id")
-    )
-    private Set<Reu> reus = new HashSet<>(); 
+    @JoinTable(name = "processo_reu", joinColumns = @JoinColumn(name = "processo_id"), inverseJoinColumns = @JoinColumn(name = "reu_id"))
+    private Set<Reu> reus = new HashSet<>();
 
     @Transient
     private List<Long> reusIds;

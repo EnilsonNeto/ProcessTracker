@@ -44,8 +44,8 @@ public class ProcessoController {
     @GetMapping
     public ResponseEntity<List<ProcessoDTO>> listar() {
         List<ProcessoDTO> processosDTO = processoService.listar().stream()
-            .map(this::convertToDto)
-            .collect(Collectors.toList());
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(processosDTO);
     }
 
@@ -62,10 +62,11 @@ public class ProcessoController {
     }
 
     private Set<Reu> obterReusPorIds(List<Long> reusIds) {
-        return reusIds == null ? Set.of() : reusIds.stream()
-            .map(reuService::buscarPorId)
-            .filter(reu -> reu != null)
-            .collect(Collectors.toSet());
+        return reusIds == null ? Set.of()
+                : reusIds.stream()
+                        .map(reuService::buscarPorId)
+                        .filter(reu -> reu != null)
+                        .collect(Collectors.toSet());
     }
 
     private ProcessoDTO convertToDto(Processo processo) {
@@ -73,8 +74,8 @@ public class ProcessoController {
         dto.setId(processo.getId());
         dto.setNumero(processo.getNumero());
         dto.setReusIds(processo.getReus().stream()
-            .map(Reu::getId)
-            .collect(Collectors.toList()));
+                .map(Reu::getId)
+                .collect(Collectors.toList()));
         return dto;
     }
 }

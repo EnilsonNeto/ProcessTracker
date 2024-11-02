@@ -52,7 +52,7 @@ class ReuControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nome").value("João TESTE Silva"))
                 .andExpect(jsonPath("$.cpf").value("23213123123"))
-        		.andExpect(jsonPath("$.telefone").value("81991443303"));
+                .andExpect(jsonPath("$.telefone").value("81991443303"));
     }
 
     @Test
@@ -63,7 +63,7 @@ class ReuControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/reus"))
                 .andExpect(status().isOk());
     }
-    
+
     @Test
     void testAtualizarReu() throws Exception {
         Long id = 1L;

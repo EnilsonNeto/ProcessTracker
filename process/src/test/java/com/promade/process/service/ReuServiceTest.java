@@ -75,7 +75,7 @@ class ReuServiceTest {
 
         assertThrows(EntityNotFoundException.class, () -> reuService.buscarPorId(id));
     }
-    
+
     @Test
     void testAtualizarReu() {
         Long id = 1L;
