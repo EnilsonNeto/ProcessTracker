@@ -35,7 +35,6 @@ public class ProcessoController {
         Processo processo = new Processo();
         processo.setNumero(processoDTO.getNumero());
 
-        // Adiciona réus ao processo, se houver
         processo.setReus(obterReusPorIds(processoDTO.getReusIds()));
 
         Processo processoSalvo = processoService.salvar(processo);
@@ -45,8 +44,8 @@ public class ProcessoController {
     @GetMapping
     public ResponseEntity<List<ProcessoDTO>> listar() {
         List<ProcessoDTO> processosDTO = processoService.listar().stream()
-            .map(this::convertToDto)
-            .collect(Collectors.toList());
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(processosDTO);
     }
 
@@ -62,22 +61,21 @@ public class ProcessoController {
         return ResponseEntity.ok().build();
     }
 
-    // Método para buscar réus pelo conjunto de IDs
     private Set<Reu> obterReusPorIds(List<Long> reusIds) {
-        return reusIds == null ? Set.of() : reusIds.stream()
-            .map(reuService::buscarPorId)
-            .filter(reu -> reu != null)
-            .collect(Collectors.toSet());
+        return reusIds == null ? Set.of()
+                : reusIds.stream()
+                        .map(reuService::buscarPorId)
+                        .filter(reu -> reu != null)
+                        .collect(Collectors.toSet());
     }
 
-    // Método de conversão de Processo para DTO
     private ProcessoDTO convertToDto(Processo processo) {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setId(processo.getId());
         dto.setNumero(processo.getNumero());
         dto.setReusIds(processo.getReus().stream()
-            .map(Reu::getId)
-            .collect(Collectors.toList()));
+                .map(Reu::getId)
+                .collect(Collectors.toList()));
         return dto;
     }
 }

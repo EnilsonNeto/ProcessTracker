@@ -27,7 +27,7 @@ public class ReuController {
         reu.setTelefone(reuDTO.getTelefone());
 
         Reu savedReu = reuService.salvar(reu);
-        
+
         ReuDTO savedReuDTO = new ReuDTO();
         savedReuDTO.setId(savedReu.getId());
         savedReuDTO.setNome(savedReu.getNome());

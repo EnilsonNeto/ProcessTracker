@@ -24,7 +24,7 @@ public class ReuService {
     public List<Reu> listar() {
         return reuRepository.findAll();
     }
-    
+
     public Reu buscarPorId(Long id) {
         return reuRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Réu não encontrado"));

@@ -32,7 +32,6 @@ public class ProcessoControllerTest {
     @MockBean
     private ProcessoService processoService;
 
-    // Teste para o método POST (criação de um processo)
     @Test
     public void testSalvarProcesso() throws Exception {
         ProcessoDTO processoDTO = new ProcessoDTO();
@@ -54,7 +53,6 @@ public class ProcessoControllerTest {
         verify(processoService, times(1)).salvar(any(Processo.class));
     }
 
-    // Teste para o método GET (listar todos os processos)
     @Test
     public void testListarProcessos() throws Exception {
         Processo processo1 = new Processo();
@@ -78,7 +76,6 @@ public class ProcessoControllerTest {
         verify(processoService, times(1)).listar();
     }
 
-    // Teste para o método DELETE (exclusão de um processo)
     @Test
     public void testExcluirProcesso() throws Exception {
         Long processoId = 1L;
@@ -91,7 +88,6 @@ public class ProcessoControllerTest {
         verify(processoService, times(1)).excluir(processoId);
     }
 
-    // Teste para o método PUT (adicionar réu a um processo)
     @Test
     public void testAdicionarReu() throws Exception {
         Long processoId = 1L;
